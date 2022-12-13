@@ -58,6 +58,15 @@ public class Database
     {
         People[_currentIndex++] = staff;
     }
+    public void PrintAll()
+    {
+        for (int i = 0; i <= _currentIndex; i++)
+        {
+            Console.WriteLine($"{i + 1} -{People[i]}");
+        }
+
+    }
+
 }
 
 public class Program
@@ -65,20 +74,58 @@ public class Program
     private static void Main()
     {
         var database = new Database();
-        Console.Write("Name: ");
-        var name = Console.ReadLine();
-        Console.Write("Age: ");
-        var age = Convert.ToInt32(Console.ReadLine());
-        Console.Write("Year: ");
-        var year = Convert.ToInt32(Console.ReadLine());
-        Console.Write("Gpa: ");
-        var gpa = Convert.ToInt32(Console.ReadLine());
-        Console.Write("Slary: ");
-        var salary = Convert.ToInt32(Console.ReadLine());
-        Console.Write("JoinYear: ");
-        var joinyear = Convert.ToInt32(Console.ReadLine());
+
+        string  name="";
+        int  age=0;
+        int year=0;
+        float gpa= 0;
+        //
+
+        double salary=0;
+
+        int joinyear=0;
+        //
         var student = new Student(name, age, year, gpa);
         database.AddStudent(student);
+        var staff = new Staff(name, age,salary ,joinyear );
+        database.AddStaff(staff);
+        Console.Write("enter optio 1 to add student : 2 to add staff : 3 to print all : 0 to stop");
+        var option = Convert.ToInt32(Console.ReadLine());
+        switch (option)
+        {
+            case 0:
+                Console.WriteLine("Done !");
+                break;
+            case 1:
+                Console.Write("Name: ");
+                name = Console.ReadLine();
+                Console.Write("Age: ");
+                age = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Year: ");
+                year = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Gpa: ");
+                gpa = Convert.ToInt32(Console.ReadLine());
+                database.AddStudent(student);
+                break;
+            case 2:
+                Console.Write("Name: ");
+                name = Console.ReadLine();
+                Console.Write("Age: ");
+                age = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Slary: ");
+                salary = Convert.ToInt32(Console.ReadLine());
+                Console.Write("JoinYear: ");
+                joinyear = Convert.ToInt32(Console.ReadLine());
+                database.AddStaff(staff);
+                break;
+            case 3:
+                database.PrintAll();
+                break;
+            default:
+                return;
+
+        }
+            
     }
 }
 
