@@ -60,9 +60,8 @@ public class Database
     }
     public void PrintAll()
     {
-        for (int i = 0; i <= _currentIndex; i++)
-        {
-            People[i].Print();
+        foreach(var item in People){
+            item?.Print();
         }
 
     }
@@ -89,7 +88,7 @@ public class Program
         database.AddStudent(student);
         var staff = new Staff(name, age,salary ,joinyear );
         database.AddStaff(staff);
-        Console.Write("enter optio 1 to add student : 2 to add staff : 3 to print all : 0 to stop");
+        Console.WriteLine("Enter option\n1--> add student: \n2--> to add staff :\n3--> to print all :\n0--> to stop:");
         var option = Convert.ToInt32(Console.ReadLine());
         while (true)
         {
@@ -106,8 +105,10 @@ public class Program
                     Console.Write("Year: ");
                     year = Convert.ToInt32(Console.ReadLine());
                     Console.Write("Gpa: ");
-                    gpa = Convert.ToInt32(Console.ReadLine());
+                    gpa = Convert.ToSingle(Console.ReadLine());
                     database.AddStudent(student);
+                    Console.WriteLine("Enter option\n1--> add student: \n2--> to add staff :\n3--> to print all :\n0--> to stop:");
+                    option = Convert.ToInt32(Console.ReadLine());
                     break;
                 case 2:
                     Console.Write("Name: ");
@@ -119,9 +120,12 @@ public class Program
                     Console.Write("JoinYear: ");
                     joinyear = Convert.ToInt32(Console.ReadLine());
                     database.AddStaff(staff);
+                    Console.WriteLine("Enter option\n1--> add student: \n2--> to add staff :\n3--> to print all :\n0--> to stop:");
+                    option = Convert.ToInt32(Console.ReadLine());
                     break;
                 case 3:
                     database.PrintAll();
+
                     break;
                 default:
                     return;
@@ -131,5 +135,6 @@ public class Program
             
     }
 }
+
 
 
