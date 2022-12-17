@@ -2,7 +2,7 @@
 using System;
 
 namespace Section_9;
-public abstract class Person
+public  class Person
 {
     public string Name;
     public int Age;
@@ -12,7 +12,11 @@ public abstract class Person
         Name = name;
         Age = age;
     }
-    public abstract void Print();
+    public virtual void Print()
+    {
+        Console.WriteLine
+       ($"Name: {Name}, Age: {Age}");
+    }
 }
 public class Student : Person
 {
@@ -58,12 +62,13 @@ public class Database
     {
         People[_currentIndex++] = staff;
     }
+    public void AddPerson(Person person)
+    {
+        People[_currentIndex++] = person;
+    }
     public void PrintAll()
     {
-        foreach(var item in People){
-            item?.Print();
-        }
-
+        for(int i = 0; i < _currentIndex; i++) { People[i].Print(); }
     }
 
 }
@@ -74,7 +79,7 @@ public class Program
     {
         var database = new Database();
 
-        string  name="";
+      /*  string  name="";
         int  age=0;
         int year=0;
         float gpa= 0;
@@ -84,11 +89,13 @@ public class Program
 
         int joinyear=0;
         //
+        var person = new Person(name, age);
+
         var student = new Student(name, age, year, gpa);
-        database.AddStudent(student);
-        var staff = new Staff(name, age,salary ,joinyear );
-        database.AddStaff(staff);
-        Console.WriteLine("Enter option\n1--> add student: \n2--> to add staff :\n3--> to print all :\n0--> to stop:");
+        
+        var staff = new Staff(name, age,salary ,joinyear );*/
+        
+        Console.WriteLine("Enter option\n1--> add student: \n2--> to add staff :\n3--> add people :\n4--> to print all:\n0--> to stop:");
         var option = Convert.ToInt32(Console.ReadLine());
         while (true)
         {
@@ -99,15 +106,16 @@ public class Program
                     return;
                 case 1:
                     Console.Write("Name: ");
-                    name = Console.ReadLine();
+                    var name = Console.ReadLine();
                     Console.Write("Age: ");
-                    age = Convert.ToInt32(Console.ReadLine());
+                    var age = Convert.ToInt32(Console.ReadLine());
                     Console.Write("Year: ");
-                    year = Convert.ToInt32(Console.ReadLine());
+                    var year = Convert.ToInt32(Console.ReadLine());
                     Console.Write("Gpa: ");
-                    gpa = Convert.ToSingle(Console.ReadLine());
+                    var gpa = Convert.ToSingle(Console.ReadLine());
+                    var student = new Student(name, age, year, gpa);
                     database.AddStudent(student);
-                    Console.WriteLine("Enter option\n1--> add student: \n2--> to add staff :\n3--> to print all :\n0--> to stop:");
+                    Console.WriteLine("Enter option\n1--> add student: \n2--> to add staff :\n3--> add people :\n4--> to print all:\n0--> to stop:");
                     option = Convert.ToInt32(Console.ReadLine());
                     break;
                 case 2:
@@ -116,17 +124,30 @@ public class Program
                     Console.Write("Age: ");
                     age = Convert.ToInt32(Console.ReadLine());
                     Console.Write("Slary: ");
-                    salary = Convert.ToInt32(Console.ReadLine());
+                    var salary = Convert.ToInt32(Console.ReadLine());
                     Console.Write("JoinYear: ");
-                    joinyear = Convert.ToInt32(Console.ReadLine());
+                    var joinyear = Convert.ToInt32(Console.ReadLine());
+                    var staff = new Staff(name, age, salary, joinyear);
                     database.AddStaff(staff);
-                    Console.WriteLine("Enter option\n1--> add student: \n2--> to add staff :\n3--> to print all :\n0--> to stop:");
+                    Console.WriteLine("Enter option\n1--> add student: \n2--> to add staff :\n3--> add people :\n4--> to print all:\n0--> to stop:");
                     option = Convert.ToInt32(Console.ReadLine());
                     break;
                 case 3:
-                    database.PrintAll();
-
+                    Console.Write("Name: ");
+                    name = Console.ReadLine();
+                    Console.Write("Age: ");
+                    age = Convert.ToInt32(Console.ReadLine());
+                    var person = new Person(name, age);
+                    database.AddPerson(person);
+                    Console.WriteLine("Enter option\n1--> add student: \n2--> to add staff :\n3--> add people :\n4--> to print all:\n0--> to stop:");
+                    option = Convert.ToInt32(Console.ReadLine());
                     break;
+                case 4:
+                    database.PrintAll();
+                    Console.WriteLine("Enter option\n1--> add student: \n2--> to add staff :\n3--> add people :\n4--> to print all:\n0--> to stop:");
+                    option = Convert.ToInt32(Console.ReadLine());
+                    break;
+                
                 default:
                     return;
 
