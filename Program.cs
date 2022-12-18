@@ -9,6 +9,14 @@ public  class Person
 
     public Person(string name, int age)
     {
+        if (name == null || name == "" || name.Length >= 32)
+        {
+            throw new Exception("Invalid name");
+        }
+        if (age <= 0 || age > 128)
+        {
+            throw new Exception("Invalid age");
+        }
         Name = name;
         Age = age;
     }
@@ -141,6 +149,15 @@ public class Program
                     database.AddPerson(person);
                     Console.WriteLine("Enter option\n1--> add student: \n2--> to add staff :\n3--> add people :\n4--> to print all:\n0--> to stop:");
                     option = Convert.ToInt32(Console.ReadLine());
+                    try
+                    {
+                        person = new Person(name, age);
+                        database.AddPerson(person);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
                     break;
                 case 4:
                     database.PrintAll();
