@@ -4,57 +4,124 @@ using System;
 namespace Section_9;
 public  class Person
 {
-    public string Name;
-    public int Age;
+    private string _name;
+    private int _age;
 
     public Person(string name, int age)
     {
-        if (name == null || name == "" || name.Length >= 32)
+        SetName(name);
+        SetAge(age);
+        _name = name;
+        _age = age;
+
+    }
+    public string GetName() => _name;
+    public int GetAge() => _age;
+    public void SetName(string name)
+    {
+        if (name == null || name == "" || name.Length > 32)
         {
             throw new Exception("Invalid name");
         }
+        _name = name;
+    }
+    public void SetAge(int age)
+    {
         if (age <= 0 || age > 128)
         {
             throw new Exception("Invalid age");
         }
-        Name = name;
-        Age = age;
+        _age = age;
     }
     public virtual void Print()
     {
         Console.WriteLine
-       ($"Name: {Name}, Age: {Age}");
+       ($"Name: {GetName()}, Age: {GetAge()}");
     }
 }
 public class Student : Person
 {
-    public int Year;
-    public float Gpa;
+    private int _year;
+    private float _gpa;
+
+
+    public int GetYear() => _year;
+    public float GetGpa() => _gpa;
+
+    public void SetYear(int year)
+    {
+        if(year<1 || year > 5)
+        {
+            throw new Exception("Invaild Year");
+        }
+        _year = year;
+    }
+    public void SetGpa(float gpa)
+    {
+        if (gpa< 0 || gpa > 4)
+        {
+            throw new Exception("Invaild GPA");
+        }
+        _gpa = gpa;
+    }
     public Student(string name, int age, int year, float gpa) : base(name, age)
     {
-        Year = year;
-        Gpa = gpa;
+        SetYear(year);
+        SetGpa(gpa);
+        _year = year;
+        _gpa = gpa;
     }
     public override void Print()
     {
         Console.WriteLine
-        ($"Name: {Name}, Age: {Age}, Gpa: {Gpa}");
+        ($"Name: {GetName()}, Age: {GetAge()}, Gpa: {GetGpa()}");
     }
 }
 
 public class Staff : Person
 {
-    public double Salary;
-    public int JoinYear;
+    private double _salary;
+    private int _joinYear;
+    
+
+    
+    
+    public double GetSalary() => _salary;
+    public int GetJoinYear() => _joinYear;
+    public void SetSalary(double salary)
+    {
+        if (salary < 0 || salary > 120000)
+        {
+            throw new Exception("Invaild Salary");
+        }
+        _salary = salary;
+    }
+    public void SetJoinYear(int joinYear)
+    {
+        if(joinYear - GetAge()  < 21)
+        {
+            throw new Exception("Invaild JoinYear ");
+        }
+        _joinYear = joinYear;
+    }
+
     public Staff(string name, int age, double salary, int joinyear) : base(name, age)
     {
-        Salary = salary;
-        JoinYear = joinyear;
+        SetJoinYear(joinyear);
+        SetSalary(salary);
+        _salary = salary;
+        _joinYear = joinyear;
+    }
+    public int BearthDate(int age)
+    {
+        var Year_toDay = DateTime.Today;
+        var Bearthdate = Year_toDay.Year - age;
+        return Bearthdate;
     }
     public override void Print()
     {
         Console.WriteLine
-        ($"Name: {Name}, Age: {Age}, Salary: {Salary} , JoinYear : {JoinYear}");
+        ($"Name: {GetName()}, Age: {GetAge()}, Salary: {GetSalary()} , JoinYear : {GetJoinYear()}");
     }
 
 }
@@ -121,8 +188,17 @@ public class Program
                     var year = Convert.ToInt32(Console.ReadLine());
                     Console.Write("Gpa: ");
                     var gpa = Convert.ToSingle(Console.ReadLine());
-                    var student = new Student(name, age, year, gpa);
-                    database.AddStudent(student);
+                    try 
+                    {
+                        
+                        var student = new Student(name, age, year, gpa);
+                        database.AddStudent(student);
+                    }
+                    catch(Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                    
                     Console.WriteLine("Enter option\n1--> add student: \n2--> to add staff :\n3--> add people :\n4--> to print all:\n0--> to stop:");
                     option = Convert.ToInt32(Console.ReadLine());
                     break;
@@ -135,8 +211,15 @@ public class Program
                     var salary = Convert.ToInt32(Console.ReadLine());
                     Console.Write("JoinYear: ");
                     var joinyear = Convert.ToInt32(Console.ReadLine());
-                    var staff = new Staff(name, age, salary, joinyear);
-                    database.AddStaff(staff);
+                    try
+                    {
+                        var staff = new Staff(name, age, salary, joinyear);
+                        database.AddStaff(staff);
+                    }
+                    catch(Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
                     Console.WriteLine("Enter option\n1--> add student: \n2--> to add staff :\n3--> add people :\n4--> to print all:\n0--> to stop:");
                     option = Convert.ToInt32(Console.ReadLine());
                     break;
