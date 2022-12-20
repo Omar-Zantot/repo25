@@ -112,12 +112,7 @@ public class Staff : Person
         _salary = salary;
         _joinYear = joinyear;
     }
-    public int BearthDate(int age)
-    {
-        var Year_toDay = DateTime.Today;
-        var Bearthdate = Year_toDay.Year - age;
-        return Bearthdate;
-    }
+   
     public override void Print()
     {
         Console.WriteLine
@@ -154,23 +149,9 @@ public class Program
     {
         var database = new Database();
 
-      /*  string  name="";
-        int  age=0;
-        int year=0;
-        float gpa= 0;
-        //
-
-        double salary=0;
-
-        int joinyear=0;
-        //
-        var person = new Person(name, age);
-
-        var student = new Student(name, age, year, gpa);
+      
         
-        var staff = new Staff(name, age,salary ,joinyear );*/
-        
-        Console.WriteLine("Enter option\n1--> add student: \n2--> to add staff :\n3--> add people :\n4--> to print all:\n0--> to stop:");
+        Console.WriteLine("Enter an option\n1) add student:\n2) to add staff :\n3) add people :\n4) to print all:\n0) to stop:");
         var option = Convert.ToInt32(Console.ReadLine());
         while (true)
         {
